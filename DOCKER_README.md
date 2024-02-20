@@ -31,5 +31,38 @@
 - ***ENTRYPOINT*** — cung cấp lệnh và đối số cho một container thực thi.
 - ***EXPOSE*** — khai báo port lắng nghe của image.
 - ***VOLUME*** — tạo một điểm gắn thư mục để truy cập và lưu trữ data.
+# Các câu lệnh thông dụng thường dùng trong docker
+~~~
+docker ps
+docker pull your_name_dockerhub
+docker build -t your_name_container
+docker run image_name
+docker logs --follow your_name_container
+docker volume ls ( Lệnh này dùng để liệt kê ra các volumn mà các container sử dụng, volume là một cơ chế dùng để lưu trữ dữ liệu sinh ra và sử dụng bởi Docker )
+docker rm <list_container_name_or_id> ( Lệnh này dùng để xóa một hoặc nhiều container. )
+docker rmi <list_image_id> ( Lệnh này dùng để xóa một hoặc nhiều images. )
+docker stop <list_container_name_or_id> ( Lệnh này dùng để stop một hoặc nhiều container. )
+~~~
+# Các option thường dùng với docker run:
+- ***--detach, -d*** : container sẽ được chạy ngầm vì vậy mọi output, lỗi sẽ không hiển thị.
+- ***--entrypoint*** : Thiết lập hoặc ghi đè các lệnh mặc định khi chạy images
+- ***--env, -e*** : Thiết lập biến môi trường sử dụng cặp (key=value). Nếu ta có biến môi trường trong file ta có thể truyền nó vào file bằng tùy chọn --env-file.
+- ***--ip*** : Khai báo địa chỉ IP cho container
+- ***--name*** : Gắn tên cho container
+- ***--publish, -p | --publish-all, -P*** : Để mở các cổng của network các container và ánh xạ nó với cổng của máy host ta sử dụng tùy chọn --publish, -p. Hoặc sử dụng --publish-all, -P sẽ mở tất cả các cổng của container.'
+~~~
+docker run --publish 80:80 <image_name> bash
+~~~
+- ***--rm*** : Tự động xóa container khi nó thoát.
+- ***--volume, -v*** : Gắn một volume vào một container, cho phép chúng ta thao tác ở container nhưng dữ liệu vẫn được lưu trữ ở máy chủ.
+~~~
+docker run --volume /volume_name <image_name> bash
+~~~
+- ***--workdir, -w*** : Chỉ định thư mục sẽ làm việc bên trong container. Giả sử ta sẽ làm việc với thư mục app trong docker
+~~~
+docker run --workdir /app <image_name> bash
+~~~
+- ***--tty, -t*** : Cấp một terminal ảo cho container.
+
 
 
