@@ -107,3 +107,30 @@
     <artifactId>opentelemetry-exporter-zipkin</artifactId>
 </dependency>
 ~~~
+- Zipkin là một hệ thống truy tìm phân tán. Truy tìm là một kỹ thuật để ghi lại thông tin về một yêu cầu như đường dẫn thực hiện, độ trễ, lỗi là gì và cứ thế. Điều này mang lại cho bạn là khả năng khắc phục sự cố về hiệu năng như nút cổ chai, tình trạng ứng dụng xuất phát từ đâu, nguyên nhân là gì, cung cấp cho bạn tổng quan về toàn bộ ứng dụng của bạn và cho bạn thấy sự tương tác giữa mỗi dịch vụ từ bắt đầu đến cuối mỗi yêu cầu Techinique có thể áp dụng cho bất kỳ kiến ​​trúc phần mềm nào, nhưng cực kỳ cần thiết cho một hệ thống phân tán.
+# Spring Cloud Circuit Breaker
+~~~
+<dependency>
+  <groupId>io.github.resilience4j</groupId>
+  <artifactId>resilience4j-spring-boot3</artifactId>
+</dependency>
+~~~
+- Spring Cloud Circuit Breaker trong Spring cloud là một thư viện quan trong cho phép bạn triển khai mô hình circuit breaker trong các ứng dụng microservices Springboot. Mô hình circuit breaker giúp bảo vệ ứng dụng/dịch vụ của bạn khỏi các dịch vụ phụ thuộc đang bị lỗi hoặc chậm chạp (đang quá tải).
+- ***Tự động mở mạch***: Spring Cloud Circuit Breaker sẽ tự động mở mạch khi một dịch vụ phụ thuộc bị lỗi hoặc chậm chạp. Điều này giúp bảo vệ ứng dụng của bạn khỏi các lỗi tràn lan. Điều này giúp cải thiện độ tin cậy của ứng dụng của bạn.
+- ***Chế độ chuyển tiếp***: Spring Cloud Circuit Breaker cung cấp một chế độ chuyển tiếp cho phép ứng dụng của bạn tiếp tục hoạt động ngay cả khi một dịch vụ phụ thuộc bị lỗi. Giúp cải thiện hiệu suất của ứng dụng của bạn bằng cách tránh gọi các dịch vụ phụ thuộc bị lỗi hoặc chậm chạp.
+- ***Tích hợp với các công cụ phân tích rủi ro***: Spring Cloud Circuit Breaker có thể tích hợp với các công cụ phân tích rủi ro phổ biến, chẳng hạn như Zipkin và Jaeger. Điều này cho phép bạn xem các dữ liệu phân tích rủi ro của ứng dụng của mình trong một giao diện trực quan.
+- Annotation để sử dụng circuit breaker:
+  - ***@CircuitBreaker***: chỉ định rằng một phương thức được bảo vệ bởi một circuit breaker.
+  - ***@Fallback***: để chỉ định rằng phương thức fallbackHello() sẽ được gọi khi circuit breaker mở mạch.
+  - ***@CircuitBreakerProperties***: được sử dụng để cấu hình các thuộc tính của circuit breaker
+  - ~~~
+    @CircuitBreaker(name = "greetingService",
+            circuitBreakerProperties = @CircuitBreakerProperties(
+                    threshold = 5,
+                    timeout = 1000,
+                    failureRateThreshold = 0.5))
+    threshold: Số lượng lỗi tối thiểu trước khi circuit breaker mở mạch.
+    timeout: Thời gian tối đa để đợi phản hồi từ dịch vụ phụ thuộc.
+    failureRateThreshold: Tỷ lệ lỗi tối đa trước khi circuit breaker mở mạch.
+    ~~~
+  - Tài liệu đọc thêm: https://viblo.asia/p/su-dung-spring-cloud-circuit-breaker-trong-microservice-java-springboot-zXRJ8bZdVGq
