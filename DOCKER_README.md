@@ -34,6 +34,7 @@
 # Các câu lệnh thông dụng thường dùng trong docker
 ~~~
 docker ps
+docker image ls
 docker pull your_name_dockerhub
 docker build -t your_name_container
 docker run image_name
